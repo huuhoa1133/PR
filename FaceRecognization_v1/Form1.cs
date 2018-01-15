@@ -16,5 +16,13 @@ namespace FaceRecognization_v1
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var a = new TrainRepo();
+            a.LoadData();
+            var labels = a.GetLabel();
+            var imgs = a.GetTrainImg();
+        }
     }
 }
