@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -47,7 +46,7 @@ namespace FaceRecognization_v1
                     {
                         string label = item.Split('\\').Last();
                         string[] fileImg = Directory.GetFiles(item, "*.*",
-                                             SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".jpg") || s.EndsWith(".png"))?.ToArray();
+                                             SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".jpg") || s.EndsWith(".png")).ToArray();
                         for (int j = 0; j < fileImg.Length; j++)
                         {
                             labels.Add(label);
