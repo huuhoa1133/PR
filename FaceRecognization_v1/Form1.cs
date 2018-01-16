@@ -19,10 +19,23 @@ namespace FaceRecognization_v1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var a = new TrainRepo();
-            a.LoadData();
-            var labels = a.GetLabel();
-            var imgs = a.GetTrainImg();
+            //var a = new TrainRepo();
+            //a.LoadData();
+            //var labels = a.GetLabel();
+            //var imgs = a.GetTrainImg();
+            //var b = a.DetectFace(imgs[0].Bitmap);
+
+            var train = new MLLib();
+            train.Training();
+            pictureBox1.Image = train.imageBindingModel[1].ImageFaceRgb.Bitmap;
+            pictureBox2.Image = train.imageBindingModel[1].ImageFaceResizeRgb.Bitmap;
+
+            
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

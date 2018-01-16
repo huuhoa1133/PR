@@ -1,0 +1,2147 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SharpLearning.Neural</name>
+    </assembly>
+    <members>
+        <member name="T:SharpLearning.Neural.Activations.Activation">
+            <summary>
+            Activation type for neural net. 
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Activations.Activation.Undefined">
+            <summary>
+            No activation.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Activations.Activation.Relu">
+            <summary>
+            Relu activation.
+            </summary>
+        </member>
+        <member name="T:SharpLearning.Neural.Activations.IActivation">
+            <summary>
+            Neural net activiation interface
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Activations.IActivation.Activation(System.Single[])">
+            <summary>
+            Calcualtes the activation and stores the result in x
+            </summary>
+            <param name="x"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Activations.IActivation.Derivative(System.Single[],System.Single[])">
+            <summary>
+            Calculates the derivative and stores the result in output
+            </summary>
+            <param name="x"></param>
+            <param name="output"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Activations.ReluActivation">
+            <summary>
+            Rectified linear activation for neural net.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Activations.ReluActivation.Activation(System.Single[])">
+            <summary>
+            Rectified linear activation for neural net.
+            </summary>
+            <param name="x"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Activations.ReluActivation.Derivative(System.Single[],System.Single[])">
+            <summary>
+            Calculates the derivative and stores the result in output
+            </summary>
+            <param name="x"></param>
+            <param name="output"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.BorderMode">
+            <summary>
+            Border mode for convolutional and pooling layers.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.BorderMode.Same">
+            <summary>
+            Pads with half the filter size on both sides. When stride is 1, this
+            results in an output size equal to the input size.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.BorderMode.Valid">
+            <summary>
+            Adds no padding. Only applies the kernel within the borders of the image. 
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.BorderMode.Full">
+            <summary>
+            Pads with one less than the filter size on both sides. This
+            is equivalent to computing the convolution wherever the input and the
+            filter overlap by at least one position.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.BorderMode.Undefined">
+            <summary>
+            No border mode defined.
+            </summary>
+        </member>
+        <member name="T:SharpLearning.Neural.ConvUtils">
+            <summary>
+            Utiliy methods for convolutional operations in neural net layers.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.ConvUtils.PaddingFromBorderMode(System.Int32,SharpLearning.Neural.BorderMode)">
+            <summary>
+            
+            </summary>
+            <param name="filterSize"></param>
+            <param name="borderMode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.ConvUtils.GetFilterGridLength(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.BorderMode)">
+            <summary>
+            Gets the filter grid width based on input length, filter size, stride and padding.
+            </summary>
+            <param name="inputLength"></param>
+            <param name="filterSize"></param>
+            <param name="stride"></param>
+            <param name="padding"></param>
+            <param name="borderMode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.ConvUtils.GetValueFromIndex(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="m"></param>
+            <param name="n"></param>
+            <param name="c"></param>
+            <param name="h"></param>
+            <param name="w"></param>
+            <param name="depth"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.ConvUtils.GetDataIndex(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="m"></param>
+            <param name="n"></param>
+            <param name="c"></param>
+            <param name="h"></param>
+            <param name="w"></param>
+            <param name="depth"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.ConvUtils.Batch_Im2Col(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.BorderMode,MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="data_im"></param>
+            <param name="channels"></param>
+            <param name="height"></param>
+            <param name="width"></param>
+            <param name="kernel_h"></param>
+            <param name="kernel_w"></param>
+            <param name="pad_h"></param>
+            <param name="pad_w"></param>
+            <param name="stride_h"></param>
+            <param name="stride_w"></param>
+            <param name="borderMode"></param>
+            <param name="data_col"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.ConvUtils.ReshapeConvolutionsToRowMajor(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.BorderMode,MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="convoluted"></param>
+            <param name="channels"></param>
+            <param name="height"></param>
+            <param name="width"></param>
+            <param name="kernel_h"></param>
+            <param name="kernel_w"></param>
+            <param name="pad_h"></param>
+            <param name="pad_w"></param>
+            <param name="stride_h"></param>
+            <param name="stride_w"></param>
+            <param name="borderMode"></param>
+            /// <param name="data_convolutedRowMajor"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.ConvUtils.ReshapeRowMajorToConvolutionLayout(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.BorderMode,MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="data_convolutedRowMajor"></param>
+            <param name="channels"></param>
+            <param name="height"></param>
+            <param name="width"></param>
+            <param name="kernel_h"></param>
+            <param name="kernel_w"></param>
+            <param name="pad_h"></param>
+            <param name="pad_w"></param>
+            <param name="stride_h"></param>
+            <param name="stride_w"></param>
+            <param name="borderMode"></param>
+            <param name="convoluted"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.ConvUtils.Batch_Col2Im(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.BorderMode,MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="data_col"></param>
+            <param name="channels"></param>
+            <param name="height"></param>
+            <param name="width"></param>
+            <param name="patch_h"></param>
+            <param name="patch_w"></param>
+            <param name="pad_h"></param>
+            <param name="pad_w"></param>
+            <param name="stride_h"></param>
+            <param name="stride_w"></param>
+            <param name="borderMode"></param>
+            <param name="data_im"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Initializations.FanInFanOut">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Initializations.FanInFanOut.FanIn">
+            <summary>
+            The fan-in of the layer
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Initializations.FanInFanOut.FanOut">
+            <summary>
+            THe fan-out of the layer 
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Initializations.FanInFanOut.#ctor(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="fanIn"></param>
+            <param name="fanOut"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Initializations.Initialization">
+            <summary>
+            Specifies the different types of initialization.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Initializations.Initialization.GlorotUniform">
+            <summary>
+            Glorot initialization using uniform distribution, based on paper:
+            http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Initializations.Initialization.HeUniform">
+            <summary>
+            He initialization using uniform distribution, based on paper:
+            https://arxiv.org/pdf/1502.01852.pdf
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Initializations.Initialization.GlorotNormal">
+            <summary>
+            Glorot initialization using normal distribution, based on paper:
+            http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Initializations.Initialization.HeNormal">
+            <summary>
+            He initialization using normal distribution, based on paper:
+            https://arxiv.org/pdf/1502.01852.pdf
+            </summary>
+        </member>
+        <member name="T:SharpLearning.Neural.Initializations.WeightInitialization">
+            <summary>
+            Weight initialization.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Initializations.WeightInitialization.InitializationBound(SharpLearning.Neural.Initializations.Initialization,SharpLearning.Neural.Initializations.FanInFanOut)">
+            <summary>
+            Returns the default initialzation bounds based on the initialization type, fan-in and fan-out.
+            </summary>
+            <param name="initialization"></param>
+            <param name="fans"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Initializations.WeightInitialization.GetFans(SharpLearning.Neural.Layers.ILayer,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Calcualtes the fan-in and fan-out used for weight initialization.
+            </summary>
+            <param name="layer"></param>
+            <param name="inputWidth"></param>
+            <param name="inputHeight"></param>
+            <param name="inputDepth"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Initializations.WeightInitialization.GetWeightDistribution(SharpLearning.Neural.Initializations.Initialization,SharpLearning.Neural.Initializations.FanInFanOut,System.Random)">
+            <summary>
+            Calculates the distribution
+            </summary>
+            <param name="initialization"></param>
+            <param name="fans"></param>
+            <param name="random"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.ActivationLayer">
+            <summary>
+            Activation layer. Adds activation functions to a neural net.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.ActivationLayer.OutputActivations">
+            <summary>
+            The weights outputtet by the layer.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.ActivationLayer.ActivationDerivative">
+            <summary>
+            Holds the derivative for backward propagation.
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.ActivationLayer.Width">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.ActivationLayer.Height">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.ActivationLayer.Depth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.ActivationLayer.ActivationFunc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.ActivationLayer.#ctor(SharpLearning.Neural.Activations.Activation)">
+            <summary>
+            Activation layer. Adds activation functions to a neural net.
+            </summary>
+            <param name="activation"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.ActivationLayer.Backward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.ActivationLayer.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.ActivationLayer.Initialize(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.Initializations.Initialization,System.Random)">
+            <summary>
+            
+            </summary>
+            <param name="inputWidth"></param>
+            <param name="inputHeight"></param>
+            <param name="inputDepth"></param>
+            <param name="batchSize"></param>
+            <param name="initializtion"></param>
+            <param name="random"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.ActivationLayer.AddParameresAndGradients(System.Collections.Generic.List{SharpLearning.Neural.ParametersAndGradients})">
+            <summary>
+            The activation layer does not have any parameters or graidents. So adds nothing.
+            </summary>
+            <param name="parametersAndGradients"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.ActivationLayer.CopyLayerForPredictionModel(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            Copies a minimal version of the layer to be used in a model for predictions.
+            </summary>
+            <param name="layers"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.BatchNormalizationLayer">
+            <summary>
+            BatchNormalizationLayer. Batch normalization can be added to accelerate the learning process of a neural net.
+            https://arxiv.org/abs/1502.03167
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.BatchNormalizationLayer.Width">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.BatchNormalizationLayer.Height">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.BatchNormalizationLayer.Depth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.BatchNormalizationLayer.ActivationFunc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.BatchNormalizationLayer.OutputActivations">
+            <summary>
+            The weights outputtet by the layer.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.BatchNormalizationLayer.BatchColumnMeans">
+            <summary>
+            The batch column means.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.BatchNormalizationLayer.BatchcolumnVars">
+            <summary>
+            The batch column variances.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.BatchNormalizationLayer.MovingAverageMeans">
+            <summary>
+            The final column means used at prediction time.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.BatchNormalizationLayer.MovingAverageVariance">
+            <summary>
+            The final column variances used at prediction time.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.BatchNormalizationLayer.Scale">
+            <summary>
+            The wieghts controlling the linear scaling of the normalization.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.BatchNormalizationLayer.Bias">
+            <summary>
+            The bias controlling the linear scaling of the normalization.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.BatchNormalizationLayer.#ctor">
+            <summary>
+            BatchNormalizationLayer. Batch normalization can be added to accelerate the learning process of a neural net.
+            https://arxiv.org/abs/1502.03167
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.BatchNormalizationLayer.Backward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.BatchNormalizationLayer.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.BatchNormalizationLayer.AddParameresAndGradients(System.Collections.Generic.List{SharpLearning.Neural.ParametersAndGradients})">
+            <summary>
+            Adds the parameters and gradients of the layer to the list.
+            </summary>
+            <param name="parametersAndGradients"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.BatchNormalizationLayer.Initialize(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.Initializations.Initialization,System.Random)">
+            <summary>
+            
+            </summary>
+            <param name="inputWidth"></param>
+            <param name="inputHeight"></param>
+            <param name="inputDepth"></param>
+            <param name="batchSize"></param>
+            <param name="initializtion"></param>
+            <param name="random"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.BatchNormalizationLayer.CopyLayerForPredictionModel(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            
+            </summary>
+            <param name="layers"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.Conv2DLayer">
+            <summary>
+            2D Convolutional layer using GEMM implementation 
+            based on: https://petewarden.com/2015/04/20/why-gemm-is-at-the-heart-of-deep-learning/
+            and: https://arxiv.org/pdf/1410.0759.pdf
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.Conv2DLayer.Width">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.Conv2DLayer.Height">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.Conv2DLayer.Depth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.Conv2DLayer.ActivationFunc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.Conv2DLayer.BatchNormalization">
+            <summary>
+            Does the layer use batch normalization
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.FilterWidth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.FilterHeight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.FilterCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.Weights">
+            <summary>
+            Weights in the layer.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.Bias">
+            <summary>
+            Biases in the layer.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.WeightsGradients">
+            <summary>
+            Weight gradients.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.BiasGradients">
+            <summary>
+            Bias gradients.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.OutputActivations">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.InputHeight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.InputWidth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.InputDepth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.Im2Cols">
+            <summary>
+            Member for storing the image to columns conversion of the minibatch.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.Conv">
+            <summary>
+            Member for storing  the convolution.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.Conv2DLayer.BorderMode">
+            <summary>
+            Border mode used for convolution.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.Conv2DLayer.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.Activations.Activation)">
+            <summary>
+            2D Convolutional layer using GEMM implementation 
+            based on: https://petewarden.com/2015/04/20/why-gemm-is-at-the-heart-of-deep-learning/
+            and: https://arxiv.org/pdf/1410.0759.pdf
+            </summary>
+            <param name="filterWidth">The width of the filters</param>
+            <param name="filterHeight">The height of the filters</param>
+            <param name="filterCount">The number of filters</param>
+            <param name="stride">Controls the distance between each neighbouring filter (default is 1)</param>
+            <param name="padWidth">Zero padding for the width dimension (default is 0)</param>
+            <param name="padHeight">Zero padding for the height dimension (default is 0)</param>
+            <param name="activation">Type of activation function used (default is Relu)</param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.Conv2DLayer.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.BorderMode,SharpLearning.Neural.Activations.Activation)">
+            <summary>
+            2D Convolutional layer using GEMM implementation 
+            based on: https://petewarden.com/2015/04/20/why-gemm-is-at-the-heart-of-deep-learning/
+            and: https://arxiv.org/pdf/1410.0759.pdf
+            </summary>
+            <param name="filterWidth">The width of the filters</param>
+            <param name="filterHeight">The height of the filters</param>
+            <param name="filterCount">The number of filters</param>
+            <param name="stride">Controls the distance between each neighbouring filter (default is 1)</param>
+            <param name="borderMode">Border mode of the convolutional operation. 
+            This will set the width and height padding automatically based on the selected border mode: Valid, Same or Full (default is Valid)</param>
+            <param name="activation">Type of activation function used (default is Relu)</param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.Conv2DLayer.Backward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.Conv2DLayer.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.Conv2DLayer.Initialize(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.Initializations.Initialization,System.Random)">
+            <summary>
+            
+            </summary>
+            <param name="inputWidth"></param>
+            <param name="inputHeight"></param>
+            <param name="inputDepth"></param>
+            <param name="batchSize"></param>
+            <param name="initializtion"></param>
+            <param name="random"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.Conv2DLayer.AddParameresAndGradients(System.Collections.Generic.List{SharpLearning.Neural.ParametersAndGradients})">
+            <summary>
+            
+            </summary>
+            <param name="parametersAndGradients"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.Conv2DLayer.CopyLayerForPredictionModel(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            Copies a minimal version of the layer to be used in a model for predictions.
+            </summary>
+            <param name="layers"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.DenseLayer">
+            <summary>
+            Fully connected neural network layer.
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.DenseLayer.Width">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.DenseLayer.Height">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.DenseLayer.Depth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.DenseLayer.ActivationFunc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.DenseLayer.BatchNormalization">
+            <summary>
+            Does the layer use batch normalization
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.DenseLayer.Weights">
+            <summary>
+            Weights in the layer.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.DenseLayer.Bias">
+            <summary>
+            Biases in the layer.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.DenseLayer.WeightsGradients">
+            <summary>
+            Weight gradients.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.DenseLayer.BiasGradients">
+            <summary>
+            Bias gradients.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.DenseLayer.OutputActivations">
+            <summary>
+            Output activation
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.DenseLayer.#ctor(System.Int32,SharpLearning.Neural.Activations.Activation)">
+            <summary>
+            Hidden layer for neural network learners.
+            </summary>
+            <param name="units">Number of hidden units or neurons in the layer</param>
+            <param name="activation">Activation function for the layer</param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.DenseLayer.Backward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Backward pass.
+            </summary>
+            <param name="delta"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.DenseLayer.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Forward pass.
+            </summary>
+            <param name="input"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.DenseLayer.Initialize(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.Initializations.Initialization,System.Random)">
+            <summary>
+            
+            </summary>
+            <param name="inputWidth"></param>
+            <param name="inputHeight"></param>
+            <param name="inputDepth"></param>
+            <param name="batchSize"></param>
+            <param name="initializtion"></param>
+            <param name="random"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.DenseLayer.AddParameresAndGradients(System.Collections.Generic.List{SharpLearning.Neural.ParametersAndGradients})">
+            <summary>
+            
+            </summary>
+            <param name="parametersAndGradients"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.DenseLayer.CopyLayerForPredictionModel(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            Copies a minimal version of the layer to be used in a model for predictions.
+            </summary>
+            <param name="layers"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.DropoutLayer">
+            <summary>
+            Dropout layer. Dropuout can help reduce overfitting in a neural net.
+            https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.DropoutLayer.DropOut">
+            <summary>
+            Dropout percentage.
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.DropoutLayer.Width">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.DropoutLayer.Height">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.DropoutLayer.Depth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.DropoutLayer.ActivationFunc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.DropoutLayer.#ctor(System.Double)">
+            <summary>
+            Dropout layer for neural network learners.
+            </summary>
+            <param name="dropOut">Dropout percentage. The percentage of units randomly omitted during training.
+            This is a reguralizatin methods for reducing overfitting. Recommended value is 0.5 and range should be between 0.2 and 0.8.
+            Default (0.0). https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf</param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.DropoutLayer.Backward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="delta"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.DropoutLayer.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.DropoutLayer.Initialize(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.Initializations.Initialization,System.Random)">
+            <summary>
+            
+            </summary>
+            <param name="inputWidth"></param>
+            <param name="inputHeight"></param>
+            <param name="inputDepth"></param>
+            <param name="batchSize"></param>
+            <param name="initializtion">Initialization type for layers with weights</param>
+            <param name="random"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.DropoutLayer.AddParameresAndGradients(System.Collections.Generic.List{SharpLearning.Neural.ParametersAndGradients})">
+            <summary>
+            
+            </summary>
+            <param name="parametersAndGradients"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.DropoutLayer.CopyLayerForPredictionModel(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            Copies a minimal version of the layer to be used in a model for predictions.
+            </summary>
+            <param name="layers"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.IBatchNormalizable">
+            <summary>
+            Interface implemented by layers that support batch normalization.
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.IBatchNormalizable.BatchNormalization">
+            <summary>
+            Does the layer use batch normalization
+            </summary>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.IClassificationLayer">
+            <summary>
+            Maker interface for classification layers.
+            </summary>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.ILayer">
+            <summary>
+            Interface for neural net layer
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.ILayer.Width">
+            <summary>
+            Width of this layer
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.ILayer.Height">
+            <summary>
+            Height of this layer
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.ILayer.Depth">
+            <summary>
+            Depth og this layer
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.ILayer.ActivationFunc">
+            <summary>
+            Activation
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.ILayer.Backward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Backward pass.
+            </summary>
+            <param name="delta"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.ILayer.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Forward pass.
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.ILayer.Initialize(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.Initializations.Initialization,System.Random)">
+            <summary>
+            Initialize.
+            </summary>
+            <param name="inputWidth">Width of the previous layer</param>
+            <param name="inputHeight">Height of the previous layer</param>
+            <param name="inputDepth">Depth of the previous layer</param>
+            <param name="batchSize">batch size</param>
+            <param name="initializtion">Initialization type for layers with weights</param>
+            <param name="random"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.ILayer.AddParameresAndGradients(System.Collections.Generic.List{SharpLearning.Neural.ParametersAndGradients})">
+            <summary>
+            Adds the layers parameters and gradients (if any) to the list.
+            </summary>
+            <param name="parametersAndGradients"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.ILayer.CopyLayerForPredictionModel(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            Copies a minimal version of the layer to be used in a model for predictions.
+            </summary>
+            <param name="layers"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.InputLayer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.InputLayer.Width">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.InputLayer.Height">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.InputLayer.Depth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.InputLayer.ActivationFunc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.InputLayer.#ctor(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="inputUnits"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.InputLayer.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="depth"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.InputLayer.Backward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="delta"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.InputLayer.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.InputLayer.Initialize(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.Initializations.Initialization,System.Random)">
+            <summary>
+            
+            </summary>
+            <param name="inputWidth"></param>
+            <param name="inputHeight"></param>
+            <param name="inputDepth"></param>
+            <param name="batchSize"></param>
+            <param name="initializtion"></param>
+            <param name="random"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.InputLayer.AddParameresAndGradients(System.Collections.Generic.List{SharpLearning.Neural.ParametersAndGradients})">
+            <summary>
+            
+            </summary>
+            <param name="parametersAndGradients"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.InputLayer.CopyLayerForPredictionModel(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            Copies a minimal version of the layer to be used in a model for predictions.
+            </summary>
+            <param name="layers"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.IOutputLayer">
+            <summary>
+            Marker interface for output layers.
+            </summary>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.IRegressionLayer">
+            <summary>
+            Maker interface for regression layers.
+            </summary>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.MaxPool2DLayer">
+            <summary>
+            Max pool layer
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.MaxPool2DLayer.Width">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.MaxPool2DLayer.Height">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.MaxPool2DLayer.Depth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.MaxPool2DLayer.ActivationFunc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.MaxPool2DLayer.InputHeight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.MaxPool2DLayer.InputWidth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.MaxPool2DLayer.InputDepth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.MaxPool2DLayer.Switchx">
+            <summary>
+            Switches for determining the position of the max during forward and back propagation.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.MaxPool2DLayer.Switchy">
+            <summary>
+            Switches for determining the position of the max during forward and back propagation.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.MaxPool2DLayer.OutputActivations">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.MaxPool2DLayer.BorderMode">
+            <summary>
+            Border mode for the pooling operation.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.MaxPool2DLayer.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Max pool layer. 
+            The max pool layers function is to progressively reduce the spatial size of the representation 
+            to reduce the amount of parameters and computation in the network. 
+            The reduction is only done on the width and height. Depth dimension is preserved.
+            </summary>
+            <param name="poolWidth">The width of the pool area (default is 2)</param>
+            <param name="poolHeight">The height of the pool area (default is 2)</param>
+            <param name="stride">Controls the distance between each neighbouring pool areas (default is 2)</param>
+            <param name="padWidth">Zero padding for the width dimension (default is 0)</param>
+            <param name="padHeight">Zero padding for the height dimension (default is 0)</param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.MaxPool2DLayer.#ctor(System.Int32,System.Int32,System.Int32,SharpLearning.Neural.BorderMode)">
+            <summary>
+            Max pool layer. 
+            The max pool layers function is to progressively reduce the spatial size of the representation 
+            to reduce the amount of parameters and computation in the network. 
+            The reduction is only done on the width and height. Depth dimension is preserved.
+            </summary>
+            <param name="poolWidth">The width of the pool area (default is 2)</param>
+            <param name="poolHeight">The height of the pool area (default is 2)</param>
+            <param name="stride">Controls the distance between each neighbouring pool areas (default is 2)</param>
+            <param name="borderMode">Border mode of the max pool operation. 
+            This will set the width and height padding automatically based on the selected border mode: Valid, Same or Full (default is Valid).</param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.MaxPool2DLayer.Backward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.MaxPool2DLayer.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.MaxPool2DLayer.AddParameresAndGradients(System.Collections.Generic.List{SharpLearning.Neural.ParametersAndGradients})">
+            <summary>
+            
+            </summary>
+            <param name="parametersAndGradients"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.MaxPool2DLayer.Initialize(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.Initializations.Initialization,System.Random)">
+            <summary>
+            
+            </summary>
+            <param name="inputWidth"></param>
+            <param name="inputHeight"></param>
+            <param name="inputDepth"></param>
+            <param name="batchSize"></param>
+            <param name="initializtion"></param>
+            <param name="random"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.MaxPool2DLayer.CopyLayerForPredictionModel(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            Copies a minimal version of the layer to be used in a model for predictions.
+            </summary>
+            <param name="layers"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.SoftMaxLayer">
+            <summary>
+            SoftMax Layer.
+            The Softmax classifier is the generalization of the binary logistic regression classifier to multiple classes. 
+            Unlike the SVM which treats the outputs as (uncalibrated and possibly difficult to interpret) scores for each class, 
+            the Softmax classifier gives a slightly more intuitive output (normalized class probabilities.
+            However, the softmax might sacrifice accuracy inorder to achive better propabilities.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.SoftMaxLayer.NumberOfClasses">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.SoftMaxLayer.Width">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.SoftMaxLayer.Height">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.SoftMaxLayer.Depth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.SoftMaxLayer.ActivationFunc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SoftMaxLayer.#ctor(System.Int32)">
+            <summary>
+            The Softmax classifier is the generalization of the binary logistic regression classifier to multiple classes. 
+            Unlike the SVM which treats the outputs as (uncalibrated and possibly difficult to interpret) scores for each class, 
+            the Softmax classifier gives a slightly more intuitive output (normalized class probabilities.
+            However, the softmax might sacrifice accuracy inorder to achive better propabilities.
+            </summary>
+            <param name="numberOfClasses"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SoftMaxLayer.Backward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="delta"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SoftMaxLayer.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SoftMaxLayer.Initialize(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.Initializations.Initialization,System.Random)">
+            <summary>
+            
+            </summary>
+            <param name="inputWidth"></param>
+            <param name="inputHeight"></param>
+            <param name="inputDepth"></param>
+            <param name="batchSize"></param>
+            <param name="initializtion"></param>
+            <param name="random"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SoftMaxLayer.SoftMax(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Softmax activation for neural net.
+            </summary>
+            <param name="x"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SoftMaxLayer.AddParameresAndGradients(System.Collections.Generic.List{SharpLearning.Neural.ParametersAndGradients})">
+            <summary>
+            
+            </summary>
+            <param name="parametersAndGradients"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SoftMaxLayer.CopyLayerForPredictionModel(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            Copies a minimal version of the layer to be used in a model for predictions.
+            </summary>
+            <param name="layers"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.SquaredErrorRegressionLayer">
+            <summary>
+            Regression layer using the squared error as loss function.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.SquaredErrorRegressionLayer.NumberOfTargets">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.SquaredErrorRegressionLayer.Width">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.SquaredErrorRegressionLayer.Height">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.SquaredErrorRegressionLayer.Depth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.SquaredErrorRegressionLayer.ActivationFunc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SquaredErrorRegressionLayer.#ctor(System.Int32)">
+            <summary>
+            Regression layer using the squared error as loss function.
+            </summary>
+            <param name="numberOfTargets">If more than one regression target. Default is 1</param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SquaredErrorRegressionLayer.Backward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SquaredErrorRegressionLayer.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SquaredErrorRegressionLayer.Initialize(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.Initializations.Initialization,System.Random)">
+            <summary>
+            
+            </summary>
+            <param name="inputWidth"></param>
+            <param name="inputHeight"></param>
+            <param name="inputDepth"></param>
+            <param name="batchSize"></param>
+            <param name="initializtion"></param>
+            <param name="random"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SquaredErrorRegressionLayer.CopyLayerForPredictionModel(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            
+            </summary>
+            <param name="layers"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SquaredErrorRegressionLayer.AddParameresAndGradients(System.Collections.Generic.List{SharpLearning.Neural.ParametersAndGradients})">
+            <summary>
+            SquaredErrorRegressionLayer layer does not have any parameters or graidents.
+            </summary>
+            <param name="parametersAndGradients"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Layers.SvmLayer">
+            <summary>
+            SvmLayer.
+            Because the SVM is a margin classifier, it is happy once the margins are satisfied 
+            and it does not micromanage the exact scores beyond this constraint.
+            This can be an advantage when the overall goal is the best possible accuracy. And probability estimates is less important.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Layers.SvmLayer.NumberOfClasses">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.SvmLayer.Width">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.SvmLayer.Height">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.SvmLayer.Depth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SharpLearning.Neural.Layers.SvmLayer.ActivationFunc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SvmLayer.#ctor(System.Int32)">
+            <summary>
+            Because the SVM is a margin classifier, it is happy once the margins are satisfied 
+            and it does not micromanage the exact scores beyond this constraint.
+            This can be an advantage when the overall goal is the best possible accuracy. And probability estimates is less important.
+            </summary>
+            <param name="numberOfClasses"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SvmLayer.Backward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="delta"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SvmLayer.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SvmLayer.Initialize(System.Int32,System.Int32,System.Int32,System.Int32,SharpLearning.Neural.Initializations.Initialization,System.Random)">
+            <summary>
+            
+            </summary>
+            <param name="inputWidth"></param>
+            <param name="inputHeight"></param>
+            <param name="inputDepth"></param>
+            <param name="batchSize"></param>
+            <param name="initializtion"></param>
+            <param name="random"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SvmLayer.AddParameresAndGradients(System.Collections.Generic.List{SharpLearning.Neural.ParametersAndGradients})">
+            <summary>
+            SvmLayer layer does not have any parameters or graidents.
+            </summary>
+            <param name="parametersAndGradients"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Layers.SvmLayer.CopyLayerForPredictionModel(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            Copies a minimal version of the layer to be used in a model for predictions.
+            </summary>
+            <param name="layers"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Learners.ClassificationNeuralNetLearner">
+            <summary>
+            ClassificationNeuralNet learner using mini-batch gradient descent. 
+            Several optimization methods is availible through the constructor.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.ClassificationNeuralNetLearner.#ctor(SharpLearning.Neural.NeuralNet,SharpLearning.Neural.Loss.ILoss,System.Double,System.Int32,System.Int32,System.Double,System.Double,SharpLearning.Neural.Optimizers.OptimizerMethod,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            ClassificationNeuralNet learner using mini-batch gradient descent. 
+            Several optimization methods is availible through the constructor.
+            </summary>
+            <param name="net">The neural net to learn</param>
+            <param name="loss">The loss measured and shown between each iteration</param>
+            <param name="learningRate">Controls the step size when updating the weights. (Default is 0.001)</param>
+            <param name="iterations">The maximum number of iterations before termination. (Default is 100)</param>
+            <param name="batchSize">Batch size for mini-batch stochastic gradient descent. (Default is 128)</param>
+            <param name="l1decay">L1 reguralization term. (Default is 0, so no reguralization)</param>
+            <param name="l2decay">L2 reguralization term. (Default is 0, so no reguralization)</param>
+            <param name="optimizerMethod">The method used for optimization (Default is RMSProp)</param>
+            <param name="momentum">Momentum for gradient update. Should be between 0 and 1. (Defualt is 0.9)</param>
+            <param name="rho">Squared gradient moving average decay factor (Default is 0.95)</param>
+            <param name="beta1">Exponential decay rate for estimates of first moment vector, should be in range 0 to 1 (Default is 0.9)</param>
+            <param name="beta2">Exponential decay rate for estimates of second moment vector, should be in range 0 to 1 (Default is 0.999)</param>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.ClassificationNeuralNetLearner.Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[])">
+            <summary>
+            Learns a classification neural network
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.ClassificationNeuralNetLearner.Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[],System.Int32[])">
+            <summary>
+            Learns a classification neural network
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <param name="indices"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.ClassificationNeuralNetLearner.Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[],SharpLearning.Containers.Matrices.F64Matrix,System.Double[])">
+            <summary>
+            Learns a classification neural network.
+            ValidationObservations and ValidationTargets are used to track the validation loss pr. iteration.
+            The iteration with the best validaiton loss is returned.
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <param name="validationObservations"></param>
+            <param name="validationTargets"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.ClassificationNeuralNetLearner.SharpLearning#Common#Interfaces#ILearner{System#Double}#Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[])">
+            <summary>
+            Learns a classification neural network
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.ClassificationNeuralNetLearner.SharpLearning#Common#Interfaces#IIndexedLearner{SharpLearning#Containers#ProbabilityPrediction}#Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[],System.Int32[])">
+            <summary>
+            Learns a classification neural network
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <param name="indices"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.ClassificationNeuralNetLearner.SharpLearning#Common#Interfaces#ILearner{SharpLearning#Containers#ProbabilityPrediction}#Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[])">
+            <summary>
+            Learns a classification neural network
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.Learners.RegressionNeuralNetLearner">
+            <summary>
+            RegressionNeuralNet learner using mini-batch gradient descent. 
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.RegressionNeuralNetLearner.#ctor(SharpLearning.Neural.NeuralNet,SharpLearning.Neural.Loss.ILoss,System.Double,System.Int32,System.Int32,System.Double,System.Double,SharpLearning.Neural.Optimizers.OptimizerMethod,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            RegressionNeuralNet learner using mini-batch gradient descent. 
+            Several optimization methods is availible through the constructor.
+            </summary>
+            <param name="net">The neural net to learn</param>
+            <param name="loss">The loss measured and shown between each iteration</param>
+            <param name="learningRate">Controls the step size when updating the weights. (Default is 0.001)</param>
+            <param name="iterations">The maximum number of iterations before termination. (Default is 100)</param>
+            <param name="batchSize">Batch size for mini-batch stochastic gradient descent. (Default is 128)</param>
+            <param name="l1decay">L1 reguralization term. (Default is 0, so no reguralization)</param>
+            <param name="l2decay">L2 reguralization term. (Default is 0, so no reguralization)</param>
+            <param name="optimizerMethod">The method used for optimization (Default is RMSProp)</param>
+            <param name="momentum">Momentum for gradient update. Should be between 0 and 1. (Defualt is 0.9)</param>
+            <param name="rho">Squared gradient moving average decay factor (Default is 0.95)</param>
+            <param name="beta1">Exponential decay rate for estimates of first moment vector, should be in range 0 to 1 (Default is 0.9)</param>
+            <param name="beta2">Exponential decay rate for estimates of second moment vector, should be in range 0 to 1 (Default is 0.999)</param>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.RegressionNeuralNetLearner.Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[])">
+            <summary>
+            Learns a regression neural network
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.RegressionNeuralNetLearner.Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[],System.Int32[])">
+            <summary>
+            Learns a regression neural network
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <param name="indices"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.RegressionNeuralNetLearner.Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[],SharpLearning.Containers.Matrices.F64Matrix,System.Double[])">
+            <summary>
+            Learns a regression neural network.
+            ValidationObservations and ValidationTargets are used to track the validation loss pr. iteration.
+            The iteration with the best validaiton loss is returned.
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <param name="validationObservations"></param>
+            <param name="validationTargets"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.RegressionNeuralNetLearner.SharpLearning#Common#Interfaces#ILearner{System#Double}#Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[])">
+            <summary>
+            Learns a regression neural network
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Learners.RegressionNeuralNetLearner.SharpLearning#Common#Interfaces#IIndexedLearner{System#Double}#Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[],System.Int32[])">
+            <summary>
+            Learns a regression neural network
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <param name="indices"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.NeuralNetLearner">
+            <summary>
+            Neural net learner. Controls the learning process using mini-batch gradient descent.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNetLearner.#ctor(SharpLearning.Neural.NeuralNet,SharpLearning.Neural.TargetEncoders.ITargetEncoder,SharpLearning.Neural.Loss.ILoss,System.Double,System.Int32,System.Int32,System.Double,System.Double,SharpLearning.Neural.Optimizers.OptimizerMethod,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Neural net learner. Controls the learning process using mini-batch gradient descent.
+            </summary>
+            <param name="net">The neural net to learn</param>
+            <param name="targetEncoder">Controls how the training targets should be decoded. 
+            This is different depending on if the net should be used for regression or classification.</param>
+            <param name="loss">The loss measured and shown between each iteration</param>
+            <param name="learningRate">Controls the step size when updating the weights. (Default is 0.001)</param>
+            <param name="iterations">The maximum number of iterations before termination. (Default is 100)</param>
+            <param name="batchSize">Batch size for mini-batch stochastic gradient descent. (Default is 128)</param>
+            <param name="l1decay">L1 reguralization term. (Default is 0, so no reguralization)</param>
+            <param name="l2decay">L2 reguralization term. (Default is 0, so no reguralization)</param>
+            <param name="optimizerMethod">The method used for optimization (Default is RMSProp)</param>
+            <param name="momentum">Momentum for gradient update. Should be between 0 and 1. (Defualt is 0.9)</param>
+            <param name="rho">Squared gradient moving average decay factor (Default is 0.95)</param>
+            <param name="beta1">Exponential decay rate for estimates of first moment vector, should be in range 0 to 1 (Default is 0.9)</param>
+            <param name="beta2">Exponential decay rate for estimates of second moment vector, should be in range 0 to 1 (Default is 0.999)</param>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNetLearner.Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[])">
+            <summary>
+            Learns a neural net based on the observations and targets.
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNetLearner.Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[],System.Int32[])">
+            <summary>
+            Learns a neural net based on the observations and targets.
+            The learning only uses the observations which indices are present in indices.
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <param name="indices"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNetLearner.Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[],SharpLearning.Containers.Matrices.F64Matrix,System.Double[])">
+            <summary>
+            Learns a neural net based on the observations and targets.
+            ValidationObservations and ValidationTargets are used to track the validation loss pr. iteration.
+            The iteration with the best validaiton loss is returned.
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <param name="validationObservations"></param>
+            <param name="validationTargets"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNetLearner.Learn(SharpLearning.Containers.Matrices.F64Matrix,System.Double[],System.Int32[],SharpLearning.Containers.Matrices.F64Matrix,System.Double[])">
+            <summary>
+            Learns a neural net based on the observations and targets.
+            The learning only uses the observations which indices are present in indices.
+            ValidationObservations and ValidationTargets are used to track the validation loss pr. iteration.
+            The iteration with the best validaiton loss is returned.
+            </summary>
+            <param name="observations"></param>
+            <param name="targets"></param>
+            <param name="indices"></param>
+            <param name="validationObservations"></param>
+            <param name="validationTargets"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.Loss.AccuracyLoss">
+            <summary>
+            Loss function for classification accuracy.
+            https://en.wikipedia.org/wiki/Accuracy_and_precision
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Loss.AccuracyLoss.Loss(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Loss function for classification accuracy.
+            https://en.wikipedia.org/wiki/Accuracy_and_precision
+            </summary>
+            <param name="targets"></param>
+            <param name="predictions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.Loss.HingeLoss">
+            <summary>
+            Hinge loss, used by linear svm
+            https://en.wikipedia.org/wiki/Hinge_loss
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Loss.HingeLoss.Loss(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Hinge loss, used by linear svm
+            https://en.wikipedia.org/wiki/Hinge_loss
+            </summary>
+            <param name="targets"></param>
+            <param name="predictions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.Loss.ILoss">
+            <summary>
+            Interface for neuralnet learner
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Loss.ILoss.Loss(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Returns the loss
+            </summary>
+            <param name="targets"></param>
+            <param name="predictions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.Loss.LogLoss">
+            <summary>
+            Log loss for neuralnet learner.
+            This error metric is used when one needs to predict that something is true or false with a probability (likelihood) 
+            ranging from definitely true (1) to equally true (0.5) to definitely false(0).
+            The use of log on the error provides extreme punishments for being both confident and wrong.
+            https://www.kaggle.com/wiki/LogarithmicLoss
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Loss.LogLoss.Loss(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            returns log los
+            This error metric is used when one needs to predict that something is true or false with a probability (likelihood) 
+            ranging from definitely true (1) to equally true (0.5) to definitely false(0).
+            The use of log on the error provides extreme punishments for being both confident and wrong.
+            </summary>
+            <param name="targets"></param>
+            <param name="predictions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.Loss.SquareLoss">
+            <summary>
+            Square loss for for neuralnet learner.
+            The square loss function is the standard method of fitting regression models.
+            The square loss is however sensitive to outliers since it weighs larger errors more heavily than small ones.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Loss.SquareLoss.Loss(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            return the square loss
+            The square loss function is the standard method of fitting regression models.
+            The square loss is however sensitive to outliers since it weighs larger errors more heavily than small ones.
+            </summary>
+            <param name="targets"></param>
+            <param name="predictions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.MathNetExtensions">
+            <summary>
+            Extension methods to Math.net numerics.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.AddRowWise(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Vector{System.Single},MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Adds vector v to matrix m. V is Added to each row of the matrix
+            </summary>
+            <param name="m"></param>
+            <param name="v"></param>
+            <param name="output"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.SubtractRowWise(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Vector{System.Single},MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Subtracts vector v from matrix m - rowwise.
+            </summary>
+            <param name="m"></param>
+            <param name="v"></param>
+            <param name="output"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.AddColumnWise(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Vector{System.Single},MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Adds vector v to matrix m. V is Added to each column of the matrix
+            </summary>
+            <param name="m"></param>
+            <param name="v"></param>
+            <param name="output"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.Multiply(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Vector{System.Single},MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Multiplies vector v to matrix m. V is multiplied to each row of the matrix
+            </summary>
+            <param name="m"></param>
+            <param name="v"></param>
+            <param name="output"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.ElementWiseMultiplicationSum(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            </summary>
+            <param name="m1"></param>
+            <param name="m2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.ColumnWiseMean(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Vector{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="m"></param>
+            <param name="v"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.SumColumns(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Vector{System.Single})">
+            <summary>
+            Sums the columns of m into the vector sums. 
+            </summary>
+            <param name="m"></param>
+            <param name="sums"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.SumColumns(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},System.Single[])">
+            <summary>
+            Sums the columns of m into the vector sums. 
+            </summary>
+            <param name="m"></param>
+            <param name="sums"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.SumRows(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Vector{System.Single})">
+            <summary>
+            Sums the rows of m into the vector sums. 
+            </summary>
+            <param name="m"></param>
+            <param name="sums"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.SumRows(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},System.Single[])">
+            <summary>
+            Sums the rows of m into the vector sums. 
+            </summary>
+            <param name="m"></param>
+            <param name="sums"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.ConvertDoubleArray(System.Double[])">
+            <summary>
+            Converts an array to a row wise matrix
+            </summary>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.Row(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},System.Int32,System.Single[])">
+            <summary>
+            Copies matrix row i into array row.
+            </summary>
+            <param name="m"></param>
+            <param name="rowIndex"></param>
+            <param name="row"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.Data(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Gets the underlying data array from the matrix. 
+            Data is storred as Column-Major.
+            </summary>
+            <param name="m"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.MathNetExtensions.Data(MathNet.Numerics.LinearAlgebra.Vector{System.Single})">
+            <summary>
+            Gets the underlying data array from the vector. 
+            </summary>
+            <param name="m"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.Models.ClassificationNeuralNetModel">
+            <summary>
+            Classification neural net model.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.ClassificationNeuralNetModel.#ctor(SharpLearning.Neural.NeuralNet,System.Double[])">
+            <summary>
+            Classification neural net model
+            </summary>
+            <param name="model"></param>
+            <param name="targetNames"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.ClassificationNeuralNetModel.Predict(System.Double[])">
+            <summary>
+            Predicts a single observation
+            </summary>
+            <param name="observation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.ClassificationNeuralNetModel.SharpLearning#Common#Interfaces#IPredictor{SharpLearning#Containers#ProbabilityPrediction}#Predict(System.Double[])">
+            <summary>
+            Predicts a single observation
+            </summary>
+            <param name="observation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.ClassificationNeuralNetModel.SharpLearning#Common#Interfaces#IPredictor{SharpLearning#Containers#ProbabilityPrediction}#Predict(SharpLearning.Containers.Matrices.F64Matrix)">
+            <summary>
+            Private explicit interface implementation for probability predictions
+            </summary>
+            <param name="observations"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.ClassificationNeuralNetModel.Predict(SharpLearning.Containers.Matrices.F64Matrix)">
+            <summary>
+            Predicts a set of observations
+            </summary>
+            <param name="observations"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.ClassificationNeuralNetModel.PredictProbability(System.Double[])">
+            <summary>
+            Predicts a single observation using the ensembled probabilities
+            Note this can yield a different result than using regular predict
+            Usally this will be a more accurate predictions
+            </summary>
+            <param name="observation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.ClassificationNeuralNetModel.PredictProbability(SharpLearning.Containers.Matrices.F64Matrix)">
+            <summary>
+            Predicts a set of obervations using the ensembled probabilities
+            </summary>
+            <param name="observations"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.ClassificationNeuralNetModel.GetRawVariableImportance">
+            <summary>
+            Variable importance is currently not supported by Neural Net.
+            Returns 0.0 for all features.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.ClassificationNeuralNetModel.GetVariableImportance(System.Collections.Generic.Dictionary{System.String,System.Int32})">
+            <summary>
+            Variable importance is currently not supported by Neural Net.
+            Returns 0.0 for all features.
+            </summary>
+            <param name="featureNameToIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.ClassificationNeuralNetModel.GetLayerDimensions">
+            <summary>
+            Outputs a string representation of the neural net.
+            Neural net must be initialized before the dimensions are correct.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.ClassificationNeuralNetModel.Load(System.Func{System.IO.TextReader})">
+            <summary>
+            Loads a ClassificationNeuralNetModel.
+            </summary>
+            <param name="reader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.ClassificationNeuralNetModel.Save(System.Func{System.IO.TextWriter})">
+            <summary>
+            Saves the ClassificationNeuralNetModel.
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.Models.RegressionNeuralNetModel">
+            <summary>
+            Regression neural net model.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.RegressionNeuralNetModel.#ctor(SharpLearning.Neural.NeuralNet)">
+            <summary>
+            Regression neural net model
+            </summary>
+            <param name="model"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.RegressionNeuralNetModel.Predict(System.Double[])">
+            <summary>
+            Predicts a single observation
+            </summary>
+            <param name="observation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.RegressionNeuralNetModel.Predict(SharpLearning.Containers.Matrices.F64Matrix)">
+            <summary>
+            Predicts a set of observations
+            </summary>
+            <param name="observations"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.RegressionNeuralNetModel.GetRawVariableImportance">
+            <summary>
+            Variable importance is currently not supported by Neural Net.
+            Returns 0.0 for all features.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.RegressionNeuralNetModel.GetVariableImportance(System.Collections.Generic.Dictionary{System.String,System.Int32})">
+            <summary>
+            Variable importance is currently not supported by Neural Net.
+            Returns 0.0 for all features.
+            </summary>
+            <param name="featureNameToIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.RegressionNeuralNetModel.GetLayerDimensions">
+            <summary>
+            Outputs a string representation of the neural net.
+            Neural net must be initialized before the dimensions are correct.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.RegressionNeuralNetModel.Load(System.Func{System.IO.TextReader})">
+            <summary>
+            Loads a RegressionNeuralNetModel.
+            </summary>
+            <param name="reader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.Models.RegressionNeuralNetModel.Save(System.Func{System.IO.TextWriter})">
+            <summary>
+            Saves the RegressionNeuralNetModel.
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.NeuralNet">
+            <summary>
+            Neural net consisting of a set of layers.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.NeuralNet.Layers">
+            <summary>
+            The layers in the network
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.#ctor(SharpLearning.Neural.Initializations.Initialization)">
+            <summary>
+            
+            </summary>
+            <param name="initialization">Initialization type for the layers with weights (default is GlorotUniform)</param>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.#ctor(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            
+            </summary>
+            <param name="layers"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.Add(SharpLearning.Neural.Layers.ILayer)">
+            <summary>
+            
+            </summary>
+            <param name="layer"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.Backward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="delta"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.Forward(MathNet.Numerics.LinearAlgebra.Matrix{System.Single},MathNet.Numerics.LinearAlgebra.Matrix{System.Single})">
+            <summary>
+            Forwards each observations from input and stores the results in output.
+            </summary>
+            <param name="input"></param>
+            <param name="output"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.Initialize(System.Int32,System.Random)">
+            <summary>
+            Initializes the layers in the neural net (Instantiates members and creates random initialization of weights). 
+            </summary>
+            <param name="batchSize"></param>
+            <param name="random"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.GetParametersAndGradients">
+            <summary>
+            Returns all paramters and gradients from the net.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.GetRawVariableImportance">
+            <summary>
+            Variable importance is currently not supported by Neural Net.
+            Returns 0.0 for all features.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.GetVariableImportance(System.Collections.Generic.Dictionary{System.String,System.Int32})">
+            <summary>
+            Variable importance is currently not supported by Neural Net.
+            Returns 0.0 for all features.
+            </summary>
+            <param name="featureNameToIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.CopyNetForPredictionModel">
+            <summary>
+            Copies a minimal version of the neural net to be used in a model for predictions.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.CreateNetFromInitializedLayers(System.Collections.Generic.List{SharpLearning.Neural.Layers.ILayer})">
+            <summary>
+            Creates a neural net from already initialized layers. 
+            This means that layer.Initialize will not be called.
+            </summary>
+            <param name="layers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SharpLearning.Neural.NeuralNet.GetLayerDimensions">
+            <summary>
+            Outputs a string representation of the neural net.
+            Neural net must be initialized before the dimensions are correct.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.Optimizers.NeuralNetOptimizer">
+            <summary>
+            Neural net optimizer for controlling the weight updates in neural net learning.
+            uses mini-batch stochastic gradient descent. 
+            Several different optimization methods is available through the constructor.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.Optimizers.NeuralNetOptimizer.#ctor(System.Double,System.Int32,System.Double,System.Double,SharpLearning.Neural.Optimizers.OptimizerMethod,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Neural net optimizer for controlling the weight updates in neural net learning.
+            uses mini-batch stochastic gradient descent. 
+            Several different optimization methods is available through the constructor.
+            </summary>
+            <param name="learningRate">Controls the step size when updating the weights. (Default is 0.01)</param>
+            <param name="batchSize">Batch size for mini-batch stochastic gradient descent. (Default is 128)</param>
+            <param name="l1decay">L1 reguralization term. (Default is 0, so no reguralization)</param>
+            <param name="l2decay">L2 reguralization term. (Default is 0, so no reguralization)</param>
+            <param name="optimizerMethod">The method used for optimization (Default is RMSProp)</param>
+            <param name="momentum">Momentum for gradient update. Should be between 0 and 1. (Defualt is 0.9)</param>
+            <param name="rho">Squared gradient moving average decay factor (Default is 0.95)</param>
+            <param name="beta1">Exponential decay rate for estimates of first moment vector, should be in range 0 to 1 (Default is 0.9)</param>
+            <param name="beta2">Exponential decay rate for estimates of second moment vector, should be in range 0 to 1 (Default is 0.999)</param>
+        </member>
+        <member name="M:SharpLearning.Neural.Optimizers.NeuralNetOptimizer.UpdateParameters(System.Collections.Generic.List{SharpLearning.Neural.ParametersAndGradients})">
+            <summary>
+            Updates the parameters based on stochastic gradient descent.
+            </summary>
+            <param name="parametersAndGradients"></param>
+        </member>
+        <member name="M:SharpLearning.Neural.Optimizers.NeuralNetOptimizer.Reset">
+            <summary>
+            Resets the counters and momentum sums.
+            </summary>
+        </member>
+        <member name="T:SharpLearning.Neural.Optimizers.OptimizerMethod">
+            <summary>
+            Optimization methods for neural net learning.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Optimizers.OptimizerMethod.Sgd">
+            <summary>
+            Stochastic gradient descent. 
+            Recommended learning rate: 0.01.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Optimizers.OptimizerMethod.Adam">
+            <summary>
+            Adam (Adaptive Moment Estimation) is another method that computes adaptive learning rates for each parameter. 
+            In addition to storing an exponentially decaying average of past squared gradients vtvt like Adadelta, 
+            Adam also keeps an exponentially decaying average of past gradients, similar to momentum.
+            Essentially Adam is RMSProp with momentum.
+            https://arxiv.org/pdf/1412.6980.pdf.
+            Recommended learning rate: 0.001.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Optimizers.OptimizerMethod.AdaMax">
+            <summary>
+            AdaMax is a variant of Adam based on the infinity norm. The algorithm is descriped in the Adam paper section 7:
+            https://arxiv.org/pdf/1412.6980.pdf.
+            Recommended learning rate: 0.002.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Optimizers.OptimizerMethod.Nadam">
+            <summary>
+            Much like Adam is essentially RMSprop with momentum, Nadam is RMSprop with Nesterov momentum:
+            http://cs229.stanford.edu/proj2015/054_report.pdf.
+            Recommended learning rate: 0.002
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Optimizers.OptimizerMethod.Adagrad">
+            <summary>
+            Adagrad adapts the learning rate to each parameter, performing larger updates for infrequent and smaller updates for frequent parameters. 
+            For this reason, it is well-suited for dealing with sparse data:
+            https://en.wikipedia.org/wiki/Stochastic_gradient_descent#AdaGrad.
+            Recommended learning rate: 0.01.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Optimizers.OptimizerMethod.Adadelta">
+            <summary>
+            Adadelta is an extension of Adagrad that seeks to reduce its aggressive, 
+            monotonically decreasing learning rate. 
+            Instead of accumulating all past squared gradients, Adadelta restricts the window of accumulated past gradients to some fixed size w.
+            https://arxiv.org/pdf/1212.5701v1.pdf.
+            Recommended learning rate: 1.0.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Optimizers.OptimizerMethod.Netsterov">
+            <summary>
+            Stochastic gradient descent but with Nesterov's accelareted gradient.
+            Recommended learning rate: 0.01.
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.Optimizers.OptimizerMethod.RMSProp">
+            <summary>
+            RMSprop is an unpublished, adaptive learning rate method proposed by Geoff Hinton.
+            RMSprop and Adadelta have both been developed independently around the same time stemming from the need to resolve Adagrad's radically diminishing learning rates.
+            Recommended learning rate: 0.001.
+            </summary>
+        </member>
+        <member name="T:SharpLearning.Neural.ParametersAndGradients">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.ParametersAndGradients.Parameters">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SharpLearning.Neural.ParametersAndGradients.Gradients">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.ParametersAndGradients.#ctor(System.Single[],System.Single[])">
+            <summary>
+            
+            </summary>
+            <param name="parameters"></param>
+            <param name="gradients"></param>
+        </member>
+        <member name="T:SharpLearning.Neural.TargetEncoders.CopyTargetEncoder">
+            <summary>
+            Copies the targets to a matrix of size [Target.Length, 1].
+            Primary use is for regression.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.TargetEncoders.CopyTargetEncoder.Encode(System.Double[])">
+            <summary>
+            Copies the targets to a matrix of size [Target.Length, 1].
+            Primary use is for regression.
+            </summary>
+            <param name="targets"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.TargetEncoders.ITargetEncoder">
+            <summary>
+            Interface for target encoding for neural net learners.
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.TargetEncoders.ITargetEncoder.Encode(System.Double[])">
+            <summary>
+            Encodes the target vector to a format accepted by a neural net learner.
+            </summary>
+            <param name="targets"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SharpLearning.Neural.TargetEncoders.OneOfNTargetEncoder">
+            <summary>
+            Encodes targets in a one-of-n structure. Target vector of with two classes [0, 1, 1, 0] becomes a matrix:
+            1 0
+            0 1
+            0 1
+            1 0
+            Primary use is for classification
+            </summary>
+        </member>
+        <member name="M:SharpLearning.Neural.TargetEncoders.OneOfNTargetEncoder.Encode(System.Double[])">
+            <summary>
+            Encodes targets in a one-of-n structure. Target vector of with two classes [0, 1, 1, 0] becomes a matrix:
+            1 0
+            0 1
+            0 1
+            1 0
+            Primary use is for classification
+            </summary>
+            <param name="targets"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
