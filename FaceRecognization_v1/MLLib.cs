@@ -236,8 +236,8 @@ namespace FaceRecognization_v1
                 {
                     Id = id_old == null ? ImageBindingModel.Iterations++ : id_old.Id,
                     Label = label,
-                    ImageFaceResizeGray = img,
-                    dImageFaceResize = img.Bytes.Select(x=>(double)x).ToList()
+                    Image = img,
+                    dImage = img.Bytes.Select(x=>(double)x).ToList()
                 });
 
             }
@@ -270,13 +270,6 @@ namespace FaceRecognization_v1
 
             var learner = new ClassificationNeuralNetLearner(net, iterations: 10, loss: new AccuracyLoss());
 
-            foreach (var item in imageBindingModel)
-            {
-                var gray = item.ImageFaceResizeRgb.Convert<Gray, byte>();
-                var bytes = gray.Bytes;
-                item.dImageFaceResize = bytes.Select(x => (double)x).ToList();
-            }
-
 
             var inputmatrix = new List<double>();
             imageBindingModel = new List<ImageBindingModel>()
@@ -285,7 +278,7 @@ namespace FaceRecognization_v1
             };
             foreach (var item in imageBindingModel)
             {
-                inputmatrix.AddRange(item.dImageFaceResize.Select(x=>x/255));
+                inputmatrix.AddRange(item.dImage.Select(x=>x/255));
             }
             var f64 = new F64Matrix(inputmatrix.ToArray(), imageBindingModel.Count, numberByteOfRow) ;
 
@@ -316,7 +309,7 @@ namespace FaceRecognization_v1
             {
                 for (int j = 0; j < numberInput; j++)
                 {
-                    trainData[i, j] = imageBindingModel[i].ImageFaceResizeGray.Bytes[j];
+                    trainData[i, j] = imageBindingModel[i].Image.Bytes[j];
                     trainClasses[i, 0] = (float)imageBindingModel[i].Id;
                 }
 

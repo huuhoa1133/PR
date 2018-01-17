@@ -21,21 +21,11 @@ namespace FaceRecognization_v1.Model
         public string Label { get; set; }
 
         /// <summary>
-        /// ảnh khuôn mặt cắt ra từ ảnh rgb
+        /// ảnh khuôn mặt gray
         /// </summary>
-        public Image<Rgb, byte> ImageFaceRgb { get; set; }
+        public Image<Gray, byte> Image { get; set; }
 
-        /// <summary>
-        /// ảnh khuôn mặt sau khi resize
-        /// </summary>
-        public Image<Rgb, byte> ImageFaceResizeRgb { get; set; }
-
-        /// <summary>
-        /// ảnh khuôn mặt sau khi resize gray
-        /// </summary>
-        public Image<Gray, byte> ImageFaceResizeGray { get; set; }
-
-        public List<double> dImageFaceResize { get; set; }
+        public List<double> dImage { get; set; }
     }
 
     /// <summary>

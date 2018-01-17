@@ -30,8 +30,7 @@ namespace FaceRecognization_v1
             //var bitmap = train.TrainANN();
             //pictureBox1.Image = bitmap;
 
-            train.TestTraning();
-            train.Test();
+
             //train.TestTraning();
             //train.Test();
 
