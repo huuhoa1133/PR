@@ -1,20 +1,19 @@
 ﻿using Emgu.CV;
 using Emgu.CV.Structure;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace FaceRecognization_v1.Model
 {
     public class ImageBindingModel
     {
-        /// <summary>
-        /// ảnh load từ db lên
-        /// </summary>
-        public Image<Rgb, byte> ImageRgb { get; set; }
+
+        public static double Iterations { get; set; }
 
         /// <summary>
-        /// ảnh trắng đen convert từ ảnh RGB
+        /// tên của ảnh, định danh
         /// </summary>
-        public Image<Gray, byte> ImageGray { get; set; }
+        public double Id { get; set; }
 
         /// <summary>
         /// nhãn của hình
@@ -30,6 +29,13 @@ namespace FaceRecognization_v1.Model
         /// ảnh khuôn mặt sau khi resize
         /// </summary>
         public Image<Rgb, byte> ImageFaceResizeRgb { get; set; }
+
+        /// <summary>
+        /// ảnh khuôn mặt sau khi resize gray
+        /// </summary>
+        public Image<Gray, byte> ImageFaceResizeGray { get; set; }
+
+        public List<double> dImageFaceResize { get; set; }
     }
 
     /// <summary>

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -26,11 +27,22 @@ namespace FaceRecognization_v1
             //var b = a.DetectFace(imgs[0].Bitmap);
 
             var train = new MLLib();
-            train.Training();
-            pictureBox1.Image = train.imageBindingModel[1].ImageFaceRgb.Bitmap;
-            pictureBox2.Image = train.imageBindingModel[1].ImageFaceResizeRgb.Bitmap;
+            //var bitmap = train.TrainANN();
+            //pictureBox1.Image = bitmap;
 
-            
+            train.TestTraning();
+            train.Test();
+            //train.TestTraning();
+            //train.Test();
+
+            //for (int i = 0; i < train.imageBindingModel.Count; i++)
+            //{
+            //    pictureBox1.Image = train.imageBindingModel[i].ImageFaceRgb.Bitmap;
+            //    pictureBox2.Image = train.imageBindingModel[i].ImageFaceResizeRgb.Bitmap;
+            //    Thread.Sleep(1000);
+            //}
+
+
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
